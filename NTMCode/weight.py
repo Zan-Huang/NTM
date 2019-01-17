@@ -12,7 +12,6 @@ init2 = tf.constant(np.random.rand(),dtype=tf.float64)
 a = tf.get_variable("conved_weight_vector_test", initializer = init)
 b = tf.get_variable("gamma_test", initializer = init2)
 '''
-
 def sharpness_function(conved_weight_vector, gamma):
     weight = []
     for i in range(0,conved_weight_vector.shape.as_list()[0]):
