@@ -5,10 +5,8 @@ import numpy as np
 #Below is Testing
 """
 init_op = tf.global_variables_initializer()
-
 init = tf.constant(np.random.rand(1, 10))
 init2 = tf.constant(np.random.rand(10, 20))
-
 a = tf.get_variable("weight_vector_test", initializer = init)
 b = tf.get_variable("memory_vector_test", initializer = init2)
 """
