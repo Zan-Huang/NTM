@@ -2,10 +2,16 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 
+init_op = tf.global_variables_initializer()
+init = tf.constant(np.random.rand(10,))
+init2 = tf.constant(np.random.rand(20, 10))
+key_vector = tf.get_variable("weight_vector_test", initializer = init)
+memory_vector = tf.get_variable("memory_vector_test", initializer = init2)
+
 def similarity_measure(key_vector, memory_vector_slice):
-    if key_vector.shape.as_list()[0] != memory_vector().shape.as_list()[1]:
+    if key_vector.shape.as_list()[0] != memory_vector.shape.as_list()[1]:
         raise Exception('The length of key vector is not equal to memory vector row length.')
-    dot_product_term = tf.matmul(key_vector, memory_vector_slice)
+    dot_product_term = tf.tensordot(key_vector, memory_vector_slice, 1)
     key_vector_norm = tf.norm(key_vector, ord='euclidean')
     memory_vector_norm = tf.norm(memory_vector_slice)
     norm_products = tf.multiply(key_vector_norm, memory_vector_norm)
@@ -15,7 +21,7 @@ def similarity_measure(key_vector, memory_vector_slice):
 
 def content_address(beta_strength, key_vector, memory_vector):
     content_filler = tf.constant(np.zeros(memory_vector.shape.as_list()[0]))
-    weight_vector = tf.get_variable("content_weights", intializer = content_filler)
+    weight_vector = tf.get_variable("content_weights", initializer = content_filler)
     composite_top = []
 
     content_bottom = 0
@@ -30,3 +36,7 @@ def content_address(beta_strength, key_vector, memory_vector):
 
     final_focus_vector = tf.stack([piece for piece in composite_top])
     return final_focus_vector
+
+with tf.Session() as sess:
+    print(content_address(tf.cast(5.0, tf.float32), key_vector, memory_vector))
+    sess.run(init_op)
