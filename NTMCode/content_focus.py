@@ -38,5 +38,5 @@ def content_address(beta_strength, key_vector, memory_vector):
     return final_focus_vector
 
 with tf.Session() as sess:
-    print(content_address(tf.cast(5.0, tf.float32), key_vector, memory_vector))
+    print(content_address(tf.cast(5.0, tf.float32), tf.cast(key_vector, tf.float32), memory_vector))
     sess.run(init_op)
