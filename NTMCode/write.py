@@ -2,7 +2,7 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 #Below is Testing
-
+''' 
 init_op = tf.global_variables_initializer()
 
 init = tf.constant(np.random.rand(1,20))
@@ -12,7 +12,7 @@ init3 = tf.constant(np.random.rand(1,10))
 a = tf.get_variable("weight_vector_test", initializer = init)
 b = tf.get_variable("memory_vector_test", initializer = init2)
 c = tf.get_variable("erase_vector_test", initializer = init3)
-
+'''
 def erase_function(weight_vector, erase_vector, past_timestep_memory_matrix):
 	weight_vector = weight_vector[0]
 	erase_vector = erase_vector[0]
@@ -42,7 +42,8 @@ def write_function(weight_vector, add_vector, erased_matrix):
 		composite.append(erased_added)
 	composite_memory = tf.stack([comp for comp in composite])
 	return composite_memory
-
+'''
 with tf.Session() as sess:
 	erased, weights = erase_function(a,c,b)
-	print(write_function(weights, c, erased))
+	write_function(weights, c, erased)
+'''
