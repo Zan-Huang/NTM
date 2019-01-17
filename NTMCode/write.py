@@ -2,7 +2,7 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 #Below is Testing
-''' 
+'''
 init_op = tf.global_variables_initializer()
 
 init = tf.constant(np.random.rand(1,20))
