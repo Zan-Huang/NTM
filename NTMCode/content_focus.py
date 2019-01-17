@@ -2,11 +2,12 @@ from __future__ import print_function
 import tensorflow as tf
 import numpy as np
 
-init_op = tf.global_variables_initializer()
+"""init_op = tf.global_variables_initializer()
 init = tf.constant(np.random.rand(10,), dtype=float)
 init2 = tf.constant(np.random.rand(20, 10), dtype=float)
 key_vector = tf.get_variable("weight_vector_test", initializer = init)
 memory_vector = tf.get_variable("memory_vector_test", initializer = init2)
+"""
 
 def similarity_measure(key_vector, memory_vector_slice):
     if key_vector.shape.as_list()[0] != memory_vector.shape.as_list()[1]:
@@ -36,7 +37,8 @@ def content_address(beta_strength, key_vector, memory_vector):
 
     final_focus_vector = tf.stack([piece for piece in composite_top])
     return final_focus_vector
-
+"""
 with tf.Session() as sess:
     print(content_address(tf.cast(5.0, tf.float32), tf.cast(key_vector, tf.float32), memory_vector))
     sess.run(init_op)
+"""
