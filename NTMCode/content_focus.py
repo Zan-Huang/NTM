@@ -3,8 +3,8 @@ import tensorflow as tf
 import numpy as np
 
 init_op = tf.global_variables_initializer()
-init = tf.constant(np.random.rand(10,))
-init2 = tf.constant(np.random.rand(20, 10))
+init = tf.constant(np.random.rand(10,), dtype=float)
+init2 = tf.constant(np.random.rand(20, 10), dtype=float)
 key_vector = tf.get_variable("weight_vector_test", initializer = init)
 memory_vector = tf.get_variable("memory_vector_test", initializer = init2)
 
@@ -27,7 +27,7 @@ def content_address(beta_strength, key_vector, memory_vector):
     content_bottom = 0
     for j in range(0, memory_vector.shape.as_list()[0]):
         content_bot_temp = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, memory_vector[j])))
-        content_bottom = tf.add(content_bottom_temp, content_bottom)
+        content_bottom = tf.add(content_bot_temp, content_bottom)
 
     for i in range(0, memory_vector.shape.as_list()[0]):
         content_vector_top = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, memory_vector[i])))
