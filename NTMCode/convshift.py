@@ -4,7 +4,7 @@ import numpy as np
 import math
 
 #Below is Testing
-
+"""
 init_op = tf.global_variables_initializer()
 
 init = tf.constant(np.random.rand(20))
@@ -14,7 +14,7 @@ init3 = tf.constant(np.random.rand(5))
 a = tf.get_variable("conved_weight_vector_test", initializer = init)
 b = tf.get_variable("gamma_test", initializer = init2)
 c = tf.get_variable("shift_vector_test", initializer = init3)
-
+"""
 def conv_function(v, k):
     size = int(v.get_shape()[0])
     kernel_size = int(k.get_shape()[0])
@@ -41,6 +41,7 @@ def sharpness_function(conved_weight_vector, gamma):
         weight.append(tf.divide(element_gama,summed_element_gama))
     return tf.stack([w for w in weight])
 
-
+"""
 with tf.Session() as sess:
     print(conv_function(a,c))
+"""
