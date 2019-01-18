@@ -1,6 +1,7 @@
 from __future__ import print_function
 import tensorflow as tf
 import numpy as np
+import math
 
 #Below is Testing
 
@@ -14,22 +15,23 @@ a = tf.get_variable("conved_weight_vector_test", initializer = init)
 b = tf.get_variable("gamma_test", initializer = init2)
 c = tf.get_variable("shift_vector_test", initializer = init3)
 
+def conv_function(v, k):
+    size = int(v.get_shape()[0])
+    kernel_size = int(k.get_shape()[0])
+    kernel_shift = int(math.floor(kernel_size/2.0))
 
-def conv_function(interpolation_weight_vector, shift_vector):
-    weight_elements = []
-    print(shift_vector[-1],'herro')
-    for i in range(0,interpolation_weight_vector.shape.as_list()[0]):
-        inner_sum = []
-        for j in range(0, interpolation_weight_vector.shape.as_list()[0]):
-            conv_index = i - j
-            print(conv_index)
-            element_conv = tf.multiply(interpolation_weight_vector[j], shift_vector[conv_index])
-            inner_sum.append(element_conv)
-        inner_sum = tf.reduce_sum(tf.stack([sum for sum in inner_sum]))
-        weight_elements.append(inner_sum)
-    weights = tf.stack(weight for weight in weight_elements)
-    return weights
+    def loop(idx):
+        if idx < 0: return size + idx
+        if idx >= size : return idx - size
+        else: return idx
 
+    kernels = []
+    for i in xrange(size):
+        indices = [loop(i+j) for j in xrange(kernel_shift, -kernel_shift-1, -1)]
+        v_ = tf.gather(v, indices)
+        kernels.append(tf.reduce_sum(v_ * k, 0))
+
+    return tf.dynamic_stitch([i for i in xrange(size)], kernels)
 
 def sharpness_function(conved_weight_vector, gamma):
     weight = []
