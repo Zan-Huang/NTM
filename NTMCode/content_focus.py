@@ -10,7 +10,7 @@ memory_vector = tf.get_variable("memory_vector_test", initializer = init2)
 """
 
 def similarity_measure(key_vector, memory_vector_slice):
-    if key_vector.shape.as_list()[0] != memory_vector.shape.as_list()[1]:
+    if key_vector.shape.as_list()[0] != memory_vector_slice.shape.as_list()[0]:
         raise Exception('The length of key vector is not equal to memory vector row length.')
     dot_product_term = tf.tensordot(key_vector, memory_vector_slice, 1)
     key_vector_norm = tf.norm(key_vector, ord='euclidean')
@@ -39,6 +39,6 @@ def content_address(beta_strength, key_vector, memory_vector):
     return final_focus_vector
 """
 with tf.Session() as sess:
-    print(content_address(tf.cast(5.0, tf.float32), tf.cast(key_vector, tf.float32), memory_vector))
+    print(content_address(tf.cast(5.0, tf.float64), tf.cast(key_vector, tf.float64), memory_vector))
     sess.run(init_op)
 """
