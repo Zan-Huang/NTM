@@ -19,3 +19,8 @@ class NTM(object):
     def __call__(self, x, previous_controller, prev_read):
         with self.graph_argument.name_scope("concat"):
             NTM_Input = tf.concat([x], prev_read, axis=1)
+
+        return NTM_output, controller_state, read_vector, write_vector, memory
+
+    def initial_state(self, batch_size, dtype):
+        
