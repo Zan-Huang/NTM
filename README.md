@@ -17,5 +17,3 @@
 6. Severability. If a court finds any provision of this Agreement invalid or unenforceable, the remainder of this Agreement shall be interpreted so as best to effect the intent of the parties.
 
 7. Integration. This Agreement expresses the complete understanding of the parties with respect to the subject matter and supersedes all prior proposals, agreements, representations, and understandings. This Agreement may not be amended except in a writing signed by both parties.
-
-8. Waiver. The failure to exercise any right provided in this Agreement shall not be a waiver of prior or subsequent rights.
