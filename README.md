@@ -1,5 +1,4 @@
-# NTM
-Neural Turing Machines for Stock Market Prediction
+# NTM (Neural Turing Machines for Stock Market Prediction)
 
 ### Warning! If you are using accessing this repository!
 
