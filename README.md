@@ -1,7 +1,7 @@
 # NTM
 Neural Turing Machines for Stock Market Prediction
 
-###Warning! If you are using accessing this repository!
+### Warning! If you are using accessing this repository!
 
  You agree to enter into a confidential relationship with respect to the disclosure of certain proprietary and confidential information ("Confidential Information").
 
