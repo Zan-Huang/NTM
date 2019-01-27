@@ -17,11 +17,18 @@ class NTM(object):
         self.graph_argument = graph_argument
 
     def __call__(self, x, previous_controller, prev_read):
-        with self.graph_argument.name_scope("concat"):
+        with self.graph_argument.variable_scope("concat", reuse = (self.step > 0)):
             NTM_Input = tf.concat([x], prev_read, axis=1)
 
-        with self.graph_argument.name_scope("controller"):
-            
+        with self.graph_argument.variable_scope("controller", reuse = (self.step > 0)):
+            controller_output, controller_state = self.controller(NTM_Input, previous_controller)
+
+        with self.graph_argument.variable_scope("parameter_feedforward", reuse = (self.step > 0)):
+            parameter_weight = tf.get_variable('parameter_weight', [controller_output.get_shape[1], 5 + 3 * (self.memory[1]]))
+            #parameter weight is determined by controller outputs and the memory M dimension M is multiplied by three because
+            #of the key vector and the two add and erase vectors
+
+
         ###Much code to fill in here on Sunday
 
         self.step += 1
