@@ -7,6 +7,7 @@ import content_focus
 import write
 import focus_location
 import read
+import adressing
 
 class NTM(object):
     def __init__(self, unit_size, memory, graph_argument):
@@ -16,7 +17,7 @@ class NTM(object):
         self.step = 0
         self.graph_argument = graph_argument
 
-    def __call__(self, x, previous_controller, prev_read):
+    def __call__(self, x, previous_controller, previous_weights, prev_read, previous_memory):
         with self.graph_argument.variable_scope("concat", reuse = (self.step > 0)):
             NTM_Input = tf.concat([x], prev_read, axis=1)
 
@@ -24,12 +25,31 @@ class NTM(object):
             controller_output, controller_state = self.controller(NTM_Input, previous_controller)
 
         with self.graph_argument.variable_scope("parameter_feedforward", reuse = (self.step > 0)):
-            parameter_weight = tf.get_variable('parameter_weight', [controller_output.get_shape[1], 5 + 3 * (self.memory[1]]), initializer = tf.contrib.layers.xavier_initializer())
+            parameter_weight = tf.get_variable('parameter_weight', [controller_output.shape[1], 5 + 3 * (self.memory[1]]), initializer = tf.contrib.layers.xavier_initializer())
             #parameter weight is determined by controller outputs and the memory M dimension M is multiplied by three because
             #of the key vector and the two add and erase vectors
             parameter_bias = tf.get_variable('parameter_bias', [5 + 3 * (self.memory[1]])], initializer = tf.contrib.layers.xavier_initializer())
 
-            parameter_final = tf.add(tf.matmul(controller_output, parameter_weight), parameter_bias)
+            parameters = tf.nn.xw_plus_b(controller_output, parameter_weight, parameter_bias)
+
+        head_parameter = tf.split(parameters[self.memory[1]+1+1+3+1], 1, axis=1)
+        erase_add = tf.split(parameters[self.memory[1]+1+1+3+1], 2, axis=1)
+
+        #Form focus vectors
+
+        k = tf.tanh(head_parameter[0:self.memory.shape[1]])
+        beta = tf.sigmoid(head_parameter[self.memory.shape[1]]) * 10
+        g = tf.sigmoid(head_parameter[self.memory.shape[1] + 1])
+        s = tf.nn.softmax(head_parameter[self.self.memory.shape[1] + 2:self.memory.shape[1] + 2 + 3])
+        gamma = tf.log(tf.exp(head_parameter[-1]) + 1) + 1
+        with tf.graph_argument.variable_scope('adressing_head')
+            w = adressing.adress(k,beta,g,s,gamma,previous_memory,previous_weights)
+        #Reading
+
+        read_vector = read.reading_function()
+
+
+
 
 
         ###Much code to fill in here on Sunday
