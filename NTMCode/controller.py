@@ -24,9 +24,12 @@ class NTM(object):
             controller_output, controller_state = self.controller(NTM_Input, previous_controller)
 
         with self.graph_argument.variable_scope("parameter_feedforward", reuse = (self.step > 0)):
-            parameter_weight = tf.get_variable('parameter_weight', [controller_output.get_shape[1], 5 + 3 * (self.memory[1]]))
+            parameter_weight = tf.get_variable('parameter_weight', [controller_output.get_shape[1], 5 + 3 * (self.memory[1]]), initializer = tf.contrib.layers.xavier_initializer())
             #parameter weight is determined by controller outputs and the memory M dimension M is multiplied by three because
             #of the key vector and the two add and erase vectors
+            parameter_bias = tf.get_variable('parameter_bias', [5 + 3 * (self.memory[1]])], initializer = tf.contrib.layers.xavier_initializer())
+
+            parameter_final = tf.add(tf.matmul(controller_output, parameter_weight), parameter_bias)
 
 
         ###Much code to fill in here on Sunday
