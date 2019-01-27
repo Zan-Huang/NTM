@@ -14,8 +14,6 @@ b = tf.get_variable("memory_vector_test", initializer = init2)
 c = tf.get_variable("erase_vector_test", initializer = init3)
 '''
 def erase_function(weight_vector, erase_vector, past_timestep_memory_matrix):
-	weight_vector = weight_vector[0]
-	erase_vector = erase_vector[0]
 	if weight_vector.shape.as_list()[0] != past_timestep_memory_matrix.shape.as_list()[0]:
 		raise Exception('The size of the memory matrix does not match the memory vector. Check size of W and make sure it is N')
 	if erase_vector.shape.as_list()[0] != past_timestep_memory_matrix.shape.as_list()[1]:
@@ -27,10 +25,9 @@ def erase_function(weight_vector, erase_vector, past_timestep_memory_matrix):
 		outers = tf.multiply(past_timestep_memory_matrix[i], inners)
 		erased.append(outers)
 	erased_memory = tf.stack([erase for erase in erased])
-	return erased_memory, weight_vector
+	return erased_memory
 
-def write_function(weight_vector, add_vector, erased_matrix):
-	add_vector = add_vector[0]
+def add_function(weight_vector, add_vector, erased_matrix):
 	if weight_vector.shape.as_list()[0] != erased_matrix.shape.as_list()[0]:
 		raise Exception('The size of the memory matrix does not match the memory vector. Check size of W and make sure it is N')
 	if add_vector.shape.as_list()[0] != erased_matrix.shape.as_list()[1]:
@@ -42,6 +39,11 @@ def write_function(weight_vector, add_vector, erased_matrix):
 		composite.append(erased_added)
 	composite_memory = tf.stack([comp for comp in composite])
 	return composite_memory
+
+def write(weight_vector,erase_vector,add_vector, previous_memory):
+	erased_memory = erase_function(weight_vector,erase_vector, previous_memory)
+	comp_mem = add_function(weight_vector, add_vector, erased_memory)
+	return comp_mem
 '''
 with tf.Session() as sess:
 	erased, weights = erase_function(a,c,b)
