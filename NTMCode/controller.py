@@ -78,5 +78,5 @@ class NTM(object):
         controller_state = expand(tf.tanh(tf.get_variable('init_state', self.unit_size, initializer=tf.random_normal_initializer(mean=0.0, stddev=0.25))), dim=0, N=batch_size)
         read_vector_batch = [expand(tf.nn.softmax(tf.get_variable('init_read', [self.memory.shape[1]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)]
         weight_batch = [expand(tf.nn.softmax(tf.get_variable('init_write', [self.memory.shape[0]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)]
-        memory = expand(tf.tanh(tf.get_variable('init_memory', [self.memory.shape[0], self.memory.shape[1]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)
-        return controller_state, read_vector_batch, weight_batch, memory
+        self.memory = expand(tf.tanh(tf.get_variable('init_memory', [self.memory.shape[0], self.memory.shape[1]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)
+        return controller_state, read_vector_batch, weight_batch
