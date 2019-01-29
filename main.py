@@ -10,6 +10,7 @@ import controller
 
 
 def main():
+
     model1 = model.StockPredictor()
 
 if __name__ == '__main__':
