@@ -8,6 +8,7 @@ sys.path.insert(0, 'NTMCode')
 import function_tests
 import controller
 
+
 def main():
     model1 = model.StockPredictor()
 
