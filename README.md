@@ -1,4 +1,4 @@
-# NTM (Neural Turing Machines for Stock Market Prediction)
+# Deep Indigo
 
 ### Warning! If you are using accessing this repository!
 
