@@ -31,16 +31,19 @@ class parse_function(object):
         volumeval = []
 
         for days in date_iterator(self.start_day, self.end_day):
-            openval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["1. open"])
-            highval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["2. high"])
-            lowval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["3. low"])
-            closeval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["4. close"])
-            volumeval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["5. volume"])
+            try:
+                openval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["1. open"])
+                highval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["2. high"])
+                lowval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["3. low"])
+                closeval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["4. close"])
+                volumeval.append(self.parsed_file['Time Series (Daily)'][days.strftime("%Y-%m-%d")]["5. volume"])
+            except KeyError:
+                continue
 
         return openval, highval, lowval, closeval, volumeval
 
 def fetch():
-    test_parse = parse_function('NDAQ', API_KEY, date(2019, 2, 7), date(2019, 2, 8))
+    test_parse = parse_function('NDAQ', API_KEY, date(2013, 2, 7), date(2019, 2, 8))
     test_parse.json_download()
     print(test_parse.json_collect())
     print("----Data Fetching Tool----")
