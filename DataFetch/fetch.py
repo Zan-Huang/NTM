@@ -42,10 +42,8 @@ class parse_function(object):
 
         return openval, highval, lowval, closeval, volumeval
 
-def fetch():
-    test_parse = parse_function('NDAQ', API_KEY, date(2013, 2, 7), date(2019, 2, 8))
+def fetch(stock_symbol):
+    test_parse = parse_function(stock_symbol, API_KEY, date(2003, 2, 7), date(2019, 2, 8))
     test_parse.json_download()
     print(test_parse.json_collect())
     print("----Data Fetching Tool----")
-
-fetch()
