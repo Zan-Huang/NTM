@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import timedelta, date
 
-API_KEY = 'J1X3N3PAL24DFCO4'
+API_KEY = 'J6VF09SPJX6ORROI'
 
 def date_iterator(start, end):
     for i in range(int((end - start).days)):
@@ -43,7 +43,7 @@ class parse_function(object):
         return openval, highval, lowval, closeval, volumeval
 
 def fetch(stock_symbol):
-    test_parse = parse_function(stock_symbol, API_KEY, date(2003, 2, 7), date(2019, 2, 8))
+    test_parse = parse_function(stock_symbol, API_KEY, date(2003, 2, 7), date(2012, 2, 8))
     test_parse.json_download()
     print(test_parse.json_collect())
     print("----Data Fetching Tool----")
