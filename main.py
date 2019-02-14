@@ -12,10 +12,10 @@ def train(self):
 
 	model = model.StockPredictor(self.args.output,self.args.seq_length,self.args.batch_size,self.args.output_dim,self.args.vector_dim)
 
-	with tf.Session() as sees:
+	with tf.Session() as sess:
 		saver = tf.train.Saver(tf.global_variables())
 		tf.global_variables_initializer().run()
-		train_writer = tf.summary.FileWriter(args.tensorboard, sens.graph)
+		train_writer = tf.summary.FileWriter(self.args.tensorboard, self.sess.graph)
 		for i in range(args.num_epocs):
 			feed_dict = {input:__need numpy array here__}
 
