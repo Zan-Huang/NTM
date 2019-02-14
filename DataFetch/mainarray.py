@@ -4,6 +4,7 @@ import json
 import pandas as pd
 from datetime import timedelta, date
 from tqdm import tqdm
+import pickle
 
 csv_file = "companylist.csv"
 
@@ -31,3 +32,6 @@ for i in tqdm(range(len(stock_symbol_list))):
     data_list.append(collect_stage)
 
 print(data_list)
+
+with open('datafile', 'wb') as f:
+    pickle.dump(datalist, fp)
