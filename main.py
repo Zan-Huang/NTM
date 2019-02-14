@@ -15,7 +15,7 @@ def train(self):
 	with tf.Session() as sess:
 		saver = tf.train.Saver(tf.global_variables())
 		tf.global_variables_initializer().run()
-		train_writer = tf.summary.FileWriter(self.args.tensorboard, self.sess.graph)
+		train_writer = tf.summary.FileWriter(self.args.tensorboard_dir, self.sess.graph)
 		for i in range(args.num_epocs):
 			feed_dict = {input:__need numpy array here__}
 
