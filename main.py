@@ -5,9 +5,12 @@ import model
 
 sys.path.insert(0, 'NTMCode')
 
-def train():
+def main(args):
+	self.args = args
 
+def train(self):
 
+	model = model.StockPredictor(self.args.output,self.args.seq_length,self.args.batch_size,self.args.output_dim,self.args.vector_dim)
 
 	with tf.Session() as sees:
 		saver = tf.train.Saver(tf.global_variables())
@@ -16,12 +19,9 @@ def train():
 		for i in range(args.num_epocs):
 			feed_dict = {input:__need numpy array here__}
 
-		sess.run
+		sess.run(model,feed_dict)
 
 
-def main():
-
-    model1 = model.StockPredictor()
 
 if __name__ == '__main__':
     main()
