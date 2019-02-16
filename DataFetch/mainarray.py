@@ -30,9 +30,9 @@ for i in tqdm(range(len(stock_symbol_list))):
         throw("Null List detected %s" % stock_symbol_list[i])
 
     data_list.append(collect_stage)
-    time.sleep(1.75)
+    time.sleep(0.75)
 
 print(data_list)
 
 with open('datafile', 'wb') as f:
-    pickle.dump(datalist, fp)
+    pickle.dump(data_list, f)
