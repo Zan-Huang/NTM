@@ -13,7 +13,7 @@ class NTM(object):
     def __init__(self, unit_size, memory, output_dim, graph_argument):
         self.unit_size = unit_size
         self.memory = memory
-        self.controller = tf.nn.rnn_cell.BasicRNNCell(unit_size)
+        self.controller = tf.nn.rnn_cell.BasicLSTMCell(unit_size)
         self.step = 0
         self.output_dim = output_dim
         self.graph_argument = graph_argument
