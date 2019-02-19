@@ -12,7 +12,7 @@ csv_file = "constituents_csv.csv"
 csv_read = pd.read_csv(csv_file)
 #print(csv_read)
 
-stock_symbols = csv_read.iloc[0:2,0]
+stock_symbols = csv_read.iloc[0:6,0]
 
 stock_symbol_list = stock_symbols.values.tolist()
 #print(stock_symbol_list)
@@ -34,9 +34,9 @@ for i in tqdm(range(len(stock_symbol_list))):
     data_list.append(collect_stage)
     time.sleep(0)
 
-
 numpy_data = np.asarray(data_list)
 print(numpy_data)
+print(len(data_list[0][0]))
 print(numpy_data.shape)
 
 np.save('data.npy', numpy_data)
