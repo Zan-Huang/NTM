@@ -12,7 +12,7 @@ csv_file = "constituents_csv.csv"
 csv_read = pd.read_csv(csv_file)
 #print(csv_read)
 
-stock_symbols = csv_read.iloc[0:6,0]
+stock_symbols = csv_read.iloc[:,0]
 
 stock_symbol_list = stock_symbols.values.tolist()
 #print(stock_symbol_list)
@@ -33,7 +33,9 @@ for i in tqdm(range(len(stock_symbol_list))):
         raise ValueError("Null List detected %s" % stock_symbol_list[i])
 
     collect_stage_np = np.asarray(collect_stage)
-    print(collect_stage_np.shape)
+    if(i > 0 and collect_stage_np.shape != numpy_data[i-1].shape):
+        zeros = np.zeros(5, collect_stage_np.shape[2] - numpy_data[i-1].shape[2])
+        np.stack(zeros, collect_stage_np)
     #ata_list.append(collect_stage)
     numpy_data.append(collect_stage_np)
     time.sleep(0)
