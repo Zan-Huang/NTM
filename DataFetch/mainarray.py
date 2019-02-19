@@ -20,9 +20,10 @@ stock_symbol_list = stock_symbols.values.tolist()
 data_list = []
 
 print(len(stock_symbol_list))
+numpy_data = []
 
 for i in tqdm(range(len(stock_symbol_list))):
-    iter_parser = fetch.parse_function(stock_symbol_list[i], 'J6VF09SPJX6ORROI', date(2012, 2, 2), date(2016, 2, 3))
+    iter_parser = fetch.parse_function(stock_symbol_list[i], 'J6VF09SPJX6ORROI', date(2018, 2, 2), date(2019, 2, 4))
     download_stage = iter_parser.json_download()
     collect_stage = iter_parser.json_collect()
     for elements in collect_stage:
@@ -31,12 +32,16 @@ for i in tqdm(range(len(stock_symbol_list))):
     if not collect_stage:
         raise ValueError("Null List detected %s" % stock_symbol_list[i])
 
-    data_list.append(collect_stage)
+    collect_stage_np = np.asarray(collect_stage)
+    print(collect_stage_np.shape)
+    #ata_list.append(collect_stage)
+    numpy_data.append(collect_stage_np)
     time.sleep(0)
 
-numpy_data = np.asarray(data_list)
-print(numpy_data)
-print(len(data_list[0][0]))
-print(numpy_data.shape)
+final_data = np.stack(numpy_data)
+#numpy_data = np.asarray(data_list)
+#print(numpy_data)
+#print(len(data_list[0][0]))
+print(final_data.shape)
 
 np.save('data.npy', numpy_data)
