@@ -17,7 +17,7 @@ class parse_function(object):
         self.end_day = end_day
 
     def json_download(self):
-        file = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=full&apikey==%s'%(self.stock_symbol, self.API_KEY))
+        file = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&outputsize=full&apikey=%s'%(self.stock_symbol, self.API_KEY))
 
         file_json = file.json()
         #self.parsed_file = file_json.loads(file)
