@@ -12,7 +12,7 @@ csv_file = "constituents_csv.csv"
 csv_read = pd.read_csv(csv_file)
 #print(csv_read)
 
-stock_symbols = csv_read.iloc[:,0]
+stock_symbols = csv_read.iloc[0:12,0]
 
 stock_symbol_list = stock_symbols.values.tolist()
 #print(stock_symbol_list)
@@ -25,7 +25,7 @@ print(len(stock_symbol_list))
 
 timedim = 503
 
-numpy_data = np.empty((5, timedim))
+numpy_data = np.empty((5, timedim, 1))
 
 for i in tqdm(range(len(stock_symbol_list))):
     iter_parser = fetch.parse_function(stock_symbol_list[i], 'J6VF09SPJX6ORROI', date(2017, 2, 2), date(2019, 2, 4))
@@ -38,15 +38,16 @@ for i in tqdm(range(len(stock_symbol_list))):
         raise ValueError("Null List detected %s" % stock_symbol_list[i])
 
     collect_stage_np = np.asarray(collect_stage)
-    if(collect_stage_np.shape != np.empty((5, timedim)).shape):
+    collect_stage_np = collect_stage_np.reshape((5, timedim, 1))
+    if(collect_stage_np.shape != np.empty((5, timedim, 1)).shape):
         zeros = np.zeros((5, np.abs(timedim - collect_stage_np.shape[1])))
         print(zeros.shape)
         print(collect_stage_np.shape)
         collect_stage_np = np.concatenate((zeros, collect_stage_np), axis=1)
     print(collect_stage_np.shape)
+    print(numpy_data.shape)
+    numpy_data = np.concatenate((numpy_data, collect_stage_np), axis=2)
 
-    total = np.concatenate((numpy_data, collect_stage_np))
+print(numpy_data.shape)
 
-print(total.shape)
-
-np.save('data.npy', total)
+np.save('data.npy', numpy_data)
