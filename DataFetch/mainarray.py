@@ -45,8 +45,8 @@ for i in tqdm(range(len(stock_symbol_list))):
         collect_stage_np = np.concatenate((zeros, collect_stage_np), axis=1)
     print(collect_stage_np.shape)
 
-    np.stack((numpy_data, collect_stage_np))
+    total = np.stack((numpy_data, collect_stage_np))
 
-print(numpy_data.shape)
+print(total.shape)
 
-np.save('data.npy', numpy_data)
+np.save('data.npy', total)
