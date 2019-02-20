@@ -80,7 +80,6 @@ BSX,Boston Scientific,Health Care
 BHF,Brighthouse Financial Inc,Financials
 BMY,Bristol-Myers Squibb,Health Care
 AVGO,Broadcom,Information Technology
-BF.B,Brown-Forman Corp.,Consumer Staples
 CHRW,C. H. Robinson Worldwide,Industrials
 CA,"CA, Inc.",Information Technology
 COG,Cabot Oil & Gas,Energy
@@ -130,7 +129,6 @@ GLW,Corning Inc.,Information Technology
 COST,Costco Wholesale Corp.,Consumer Staples
 COTY,"Coty, Inc",Consumer Staples
 CCI,Crown Castle International Corp.,Real Estate
-CSRA,CSRA Inc.,Information Technology
 CSX,CSX Corp.,Industrials
 CMI,Cummins Inc.,Industrials
 CVS,CVS Health,Consumer Staples
@@ -152,7 +150,6 @@ DLTR,Dollar Tree,Consumer Discretionary
 D,Dominion Energy,Utilities
 DOV,Dover Corp.,Industrials
 DWDP,DowDuPont,Materials
-DPS,Dr Pepper Snapple Group,Consumer Staples
 DTE,DTE Energy Co.,Utilities
 DUK,Duke Energy,Utilities
 DRE,Duke Realty Corp,Real Estate
@@ -167,7 +164,6 @@ EW,Edwards Lifesciences,Health Care
 EA,Electronic Arts,Information Technology
 EMR,Emerson Electric Company,Industrials
 ETR,Entergy Corp.,Utilities
-EVHC,Envision Healthcare,Health Care
 EOG,EOG Resources,Energy
 EQT,EQT Corporation,Energy
 EFX,Equifax Inc.,Industrials
@@ -207,7 +203,6 @@ GRMN,Garmin Ltd.,Consumer Discretionary
 IT,Gartner Inc,Information Technology
 GD,General Dynamics,Industrials
 GE,General Electric,Industrials
-GGP,General Growth Properties Inc.,Real Estate
 GIS,General Mills,Consumer Staples
 GM,General Motors,Consumer Discretionary
 GPC,Genuine Parts,Consumer Discretionary
@@ -314,7 +309,6 @@ MAA,Mid-America Apartments,Real Estate
 MHK,Mohawk Industries,Consumer Discretionary
 TAP,Molson Coors Brewing Company,Consumer Staples
 MDLZ,Mondelez International,Consumer Staples
-MON,Monsanto Co.,Materials
 MNST,Monster Beverage,Consumer Staples
 MCO,Moody's Corp,Financials
 MS,Morgan Stanley,Financials
@@ -395,7 +389,6 @@ RSG,Republic Services Inc,Industrials
 RMD,ResMed,Health Care
 RHI,Robert Half International,Industrials
 ROK,Rockwell Automation Inc.,Industrials
-COL,Rockwell Collins,Industrials
 ROP,Roper Technologies,Industrials
 ROST,Ross Stores,Consumer Discretionary
 RCL,Royal Caribbean Cruises Ltd,Consumer Discretionary
@@ -491,12 +484,10 @@ WY,Weyerhaeuser Corp.,Real Estate
 WHR,Whirlpool Corp.,Consumer Discretionary
 WMB,Williams Cos.,Energy
 WLTW,Willis Towers Watson,Financials
-WYN,Wyndham Worldwide,Consumer Discretionary
 WYNN,Wynn Resorts Ltd,Consumer Discretionary
 XEL,Xcel Energy Inc,Utilities
 XRX,Xerox Corp.,Information Technology
 XLNX,Xilinx Inc,Information Technology
-XL,XL Capital,Financials
 XYL,Xylem Inc.,Industrials
 YUM,Yum! Brands Inc,Consumer Discretionary
 ZBH,Zimmer Biomet Holdings,Health Care
