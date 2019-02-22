@@ -13,7 +13,9 @@ class StockPredictor(object):
         self.x = tf.placeholder(name='x',dtype=tf.float32,shape=[batch_size, seq_length, vector_dim])
         self.y = label
 
-        cell = controller.NTM(512, memory_vector, x.shape, g)
+        memory_vector = tf.get_variable("memory_vector_test", initializer = tf.get_variable(np.random.rand(80, 100)))
+        unit_size = 512
+        cell = controller.NTM(unit_size, memory_vector, x.shape[2], g)
         controller_state, read_vector, w = cell.initial_state(batch_size, tf.float32)
         for i in range(seq_length):
             output, controller_state, read_vector, w = cell.call(self.x[:,i,:],controller_state,w,read_vector)
