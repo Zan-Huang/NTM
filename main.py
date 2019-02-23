@@ -6,13 +6,11 @@ import model
 data = np.load('data.npy')
 sys.path.insert(0, 'NTMCode')
 
-output =
-seq_length =
-batch_size =
-output_dim =
-vector_dim =
+flags = tf.app.flags
+FLAGS = flags.FLAGS
 
-def main():
+
+def main(argv):
 	print(data.shape)
 	train()
 
