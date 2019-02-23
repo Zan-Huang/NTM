@@ -3,13 +3,20 @@ import numpy as np
 import sys
 import model
 
+data = np.load('data.npy')
 sys.path.insert(0, 'NTMCode')
 
-def main(args):
-	self.args = args
+output =
+seq_length =
+batch_size =
+output_dim =
+vector_dim =
+
+def main():
+	print(data.shape)
+	train()
 
 def train(self):
-
 	model = model.StockPredictor(self.args.output,self.args.seq_length,self.args.batch_size,self.args.output_dim,self.args.vector_dim)
 
 	with tf.Session() as sess:
@@ -17,9 +24,10 @@ def train(self):
 		tf.global_variables_initializer().run()
 		train_writer = tf.summary.FileWriter(self.args.tensorboard_dir, self.sess.graph)
 		for i in range(args.num_epocs):
-			feed_dict = {input:__need numpy array here__}
+			feed_dict = {input: data}
 
-		sess.run(model,feed_dict)
+		#sess.run(model,feed_dict)
+		sess.run(feed_dict)
 
 
 
