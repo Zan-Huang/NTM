@@ -17,16 +17,16 @@ flags.DEFINE_integer('--vector_dim', 5, 'Number of features')
 flags.DEFINE_integer('--num_epochs', 1000, 'How many epochs to run the model for')
 
 
-def main(argv):
+def main():
 	print(data.shape)
 	train()
 
 def build_model(self):
 	self.train_inputs = tf.placeholder(tf.float32, [FLAGS.numEl, FLAGS.seq_length, FLAGS.vector_dim])
-	self.train_labels = tf.placeholder(tf.float32, [FALGS.numEl])	
+	self.train_labels = tf.placeholder(tf.float32, [FALGS.numEl])
 
-def train(self):
-	model = model.StockPredictor(FLAGS.seq_length,FLAGS.batch_size,FLAGS.vector_dim)
+def train():
+	modelf = model.StockPredictor(FLAGS.seq_length,FLAGS.batch_size,FLAGS.vector_dim)
 
 	with tf.Session() as sess:
 		saver = tf.train.Saver(tf.global_variables())
