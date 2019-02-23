@@ -9,13 +9,14 @@ sys.path.insert(0, 'NTMCode')
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 
+flags.DEFINE_integer('seq_length', 100, 'length of stock days')
 
 def main(argv):
 	print(data.shape)
 	train()
 
 def train(self):
-	model = model.StockPredictor(self.args.output,self.args.seq_length,self.args.batch_size,self.args.output_dim,self.args.vector_dim)
+	model = model.StockPredictor(self.args.seq_length,self.args.batch_size,self.args.output_dim,self.args.vector_dim)
 
 	with tf.Session() as sess:
 		saver = tf.train.Saver(tf.global_variables())

@@ -9,7 +9,7 @@ import controller
 g = tf.Graph()
 
 class StockPredictor(object):
-    def __init__(self, output, seq_length, batch_size, output_dim, vector_dim):
+    def __init__(self, seq_length, batch_size, output_dim, vector_dim):
         self.x = tf.placeholder(name='x',dtype=tf.float32,shape=[batch_size, seq_length, vector_dim])
         self.y = label
 
