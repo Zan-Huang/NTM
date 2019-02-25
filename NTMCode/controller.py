@@ -19,13 +19,13 @@ class NTM(object):
         self.graph_argument = graph_argument
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
-        with self.graph_argument.variable_scope("concat", reuse = (self.step > 0)):
+        with tf.variable_scope("concat", reuse = (self.step > 0)):
             NTM_Input = tf.concat([x], prev_read, axis=1)
 
-        with self.graph_argument.variable_scope("controller", reuse = (self.step > 0)):
+        with tf.variable_scope("controller", reuse = (self.step > 0)):
             controller_output, controller_state = self.controller(NTM_Input, previous_controller)
 
-        with self.graph_argument.variable_scope("parameter_feedforward", reuse = (self.step > 0)):
+        with tf.variable_scope("parameter_feedforward", reuse = (self.step > 0)):
             parameter_weight = tf.get_variable('parameter_weight', [controller_output.shape()[1], 5 + 3 * (self.memory.shape()[1])], initializer = tf.contrib.layers.xavier_initializer())
             #parameter weight is determined by controller outputs and the memory M dimension M is multiplied by three because
             #of the key vector and the two add and erase vectors
@@ -43,19 +43,19 @@ class NTM(object):
         g = tf.sigmoid(head_parameter[self.memory.shape()[1] + 1])
         s = tf.nn.softmax(head_parameter[self.self.memory.shape()[1] + 2:self.memory.shape()[1] + 2 + 3])
         gamma = tf.log(tf.exp(head_parameter[-1]) + 1) + 1
-        with self.graph_argument.variable_scope('adressing_head'):
+        with tf.variable_scope('adressing_head'):
             w = adressing.adress(k,beta,g,s,gamma,self.memory,previous_weights)
 
 
         #Reading
-        with self.graph_argument.variable_scope("read_vector"):
+        with tf.variable_scope("read_vector"):
             read_vector = read.reading_function(w, self.memory)
 
 
         #Writing
         erase_vector = tf.sigmoid(erase_add[0], axis=1)
         add_vector = tf.tanh(erase_add[1], axis=1)
-        with self.graph_argument.variable_scope("write_vector"):
+        with tf.variable_scope("write_vector"):
             comp_mem = write.write(w,erase_vector,add_vector,self.memory)
         self.memory = comp_mem
 
