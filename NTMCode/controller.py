@@ -1,6 +1,7 @@
 from __future__ import print_function
 import tensorflow as tf
 import numpy as np
+import keras
 
 import convshift
 import content_focus
@@ -13,17 +14,14 @@ class NTM(object):
     def __init__(self, unit_size, memory, output_dim, graph_argument):
         self.unit_size = unit_size
         self.memory = memory
-        self.controller = tf.nn.rnn_cell.BasicLSTMCell(unit_size)
+        self.controller = tf.contrib.rnn.GRUCell(unit_size)
         self.step = 0
         self.output_dim = output_dim
         self.graph_argument = graph_argument
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
         with tf.variable_scope("concat", reuse = (self.step > 0)):
-            print(prev_read)
             x = tf.layers.Flatten()(x)
-            print(type(prev_read))
-            print(x)
             NTM_Input = tf.concat([x, prev_read], axis=1)
 
         with tf.variable_scope("controller", reuse = (self.step > 0)):
