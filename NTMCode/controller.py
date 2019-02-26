@@ -20,9 +20,10 @@ class NTM(object):
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
         with tf.variable_scope("concat", reuse = (self.step > 0)):
-            print(prev_read) 
-            x = tf.layers.Flatten()(x)
             print(prev_read)
+            x = tf.layers.Flatten()(x)
+            print(type(prev_read))
+            print(x)
             NTM_Input = tf.concat([x, prev_read], axis=1)
 
         with tf.variable_scope("controller", reuse = (self.step > 0)):
@@ -79,7 +80,7 @@ class NTM(object):
             return tf.concat([tf.expand_dims(x, dim) for _ in range(N)], axis=dim)
 
         controller_state = expand(tf.tanh(tf.get_variable('init_state', self.unit_size, initializer=tf.random_normal_initializer(mean=0.0, stddev=0.25))), dim=0, N=batch_size)
-        read_vector_batch = [expand(tf.nn.softmax(tf.get_variable('init_read', [self.memory.shape[1]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)]
-        weight_batch = [expand(tf.nn.softmax(tf.get_variable('init_write', [self.memory.shape[0]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)]
+        read_vector_batch = expand(tf.nn.softmax(tf.get_variable('init_read', [self.memory.shape[1]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)
+        weight_batch = expand(tf.nn.softmax(tf.get_variable('init_write', [self.memory.shape[0]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)
         self.memory = expand(tf.tanh(tf.get_variable('init_memory', [self.memory.shape[0], self.memory.shape[1]], initializer=tf.random_normal_initializer(mean=0.0, stddev=0.5))), dim=0, N=batch_size)
         return controller_state, read_vector_batch, weight_batch
