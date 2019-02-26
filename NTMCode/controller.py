@@ -20,7 +20,7 @@ class NTM(object):
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
         with tf.variable_scope("concat", reuse = (self.step > 0)):
-            NTM_Input = tf.concat([x], prev_read, axis=1)
+            NTM_Input = tf.concat([x, prev_read], axis=1)
 
         with tf.variable_scope("controller", reuse = (self.step > 0)):
             controller_output, controller_state = self.controller(NTM_Input, previous_controller)
