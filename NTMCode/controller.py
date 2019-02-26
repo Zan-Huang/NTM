@@ -20,6 +20,9 @@ class NTM(object):
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
         with tf.variable_scope("concat", reuse = (self.step > 0)):
+            print(prev_read) 
+            x = tf.layers.Flatten()(x)
+            print(prev_read)
             NTM_Input = tf.concat([x, prev_read], axis=1)
 
         with tf.variable_scope("controller", reuse = (self.step > 0)):
