@@ -37,11 +37,11 @@ class NTM(object):
 
         print(parameters.get_shape())
         print(self.memory.get_shape())
-        head_parameter = tf.split(parameters[:, :self.memory.get_shape()[1]+1+1+3+1], 1, axis=1)
+        head_parameter = tf.split(parameters[:, :self.memory.get_shape()[1]+1+1+3+1+1], 1, axis=1)
         print(head_parameter)
         #head_parameter = parameters
         #erase_add = tf.split(parameters[self.memory.get_shape()[1]+1+1+3+1], 2, axis=1)
-        erase_add = tf.split(parameters[:, self.memory.get_shape()[1]+1+1+3+1:], 2, axis = 1)
+        erase_add = tf.split(parameters[:, self.memory.get_shape()[1]+1+1+3+1+1:], 2, axis = 1)
         #Form focus vectors
 
         k = tf.tanh(head_parameter[0:self.memory.get_shape()[1]])
