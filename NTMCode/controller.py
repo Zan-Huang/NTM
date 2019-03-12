@@ -54,8 +54,8 @@ class NTM(object):
         s = tf.nn.softmax(head_parameter[0][self.memory.get_shape()[1] + 2:self.memory.get_shape()[1] + 2 + 3])
         gamma = tf.log(tf.exp(head_parameter[0][-1]) + 1) + 1
         with tf.variable_scope('adressing_head'):
-            w = addressing.address(k,beta,g,s,gamma,self.memory,previous_weights)
-
+            ad = addressing.addressing(k,beta,g,s,gamma,self.memory,previous_weights)
+            w = ad.adress()
         #Reading
         with tf.variable_scope("read_vector"):
             read_vector = read.reading_function(w, self.memory)
