@@ -40,7 +40,7 @@ class NTM(object):
         head_parameter = parameters[:self.memory.get_shape()[1]+1+1+3+1+1]
         erase_add = parameters[self.memory.get_shape()[1]+1+1+3+1+1:]
         #Form focus vectors
-        
+
 
         print(self.memory.get_shape()[1])
 
@@ -54,8 +54,8 @@ class NTM(object):
         s = tf.nn.softmax(head_parameter[0][self.memory.get_shape()[1] + 2:self.memory.get_shape()[1] + 2 + 3])
         gamma = tf.log(tf.exp(head_parameter[0][-1]) + 1) + 1
         with tf.variable_scope('adressing_head'):
-            ad = addressing.addressing(k,beta,g,s,gamma,self.memory,previous_weights)
-            w = ad.adress()
+            ad = addressing.addressing(k, beta, g, s,gamma, self.memory, previous_weights)
+            w = ad.address()
         #Reading
         with tf.variable_scope("read_vector"):
             read_vector = read.reading_function(w, self.memory)

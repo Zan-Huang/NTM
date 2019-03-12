@@ -5,7 +5,7 @@ import content_focus
 import convshift
 import focus_location
 
-class adressing(object):
+class addressing(object):
 
     def __init__(self, k, beta, g, s, gamma, M_prev, w_prev):
         self.k = k
