@@ -35,23 +35,26 @@ class NTM(object):
 
             parameters = tf.nn.xw_plus_b(controller_output, parameter_weight, parameter_bias)
 
-        print(parameters.get_shape())
-        print(self.memory.get_shape())
-        head_parameter = tf.split(parameters[:, :self.memory.get_shape()[1]+1+1+3+1+1], 1, axis=1)
-        print(head_parameter)
         #head_parameter = parameters
         #erase_add = tf.split(parameters[self.memory.get_shape()[1]+1+1+3+1], 2, axis=1)
-        erase_add = tf.split(parameters[:, self.memory.get_shape()[1]+1+1+3+1+1:], 2, axis = 1)
+        head_parameter = parameters[:self.memory.get_shape()[1]+1+1+3+1+1]
+        erase_add = parameters[self.memory.get_shape()[1]+1+1+3+1+1:]
         #Form focus vectors
+        
 
-        k = tf.tanh(head_parameter[0:self.memory.get_shape()[1]])
-        beta = tf.sigmoid(head_parameter[self.memory.get_shape()[1]]) * 10
-        g = tf.sigmoid(head_parameter[self.memory.get_shape()[1] + 1])
-        s = tf.nn.softmax(head_parameter[self.self.memory.get_shape()[1] + 2:self.memory.get_shape()[1] + 2 + 3])
-        gamma = tf.log(tf.exp(head_parameter[-1]) + 1) + 1
+        print(self.memory.get_shape()[1])
+
+        print(type(head_parameter))
+
+        print(head_parameter[0].get_shape(),'head p')
+
+        k = tf.tanh(head_parameter[0][0:self.memory.get_shape()[1]])
+        beta = tf.sigmoid(head_parameter[0][self.memory.get_shape()[1]]) * 10
+        g = tf.sigmoid(head_parameter[0][self.memory.get_shape()[1] + 1])
+        s = tf.nn.softmax(head_parameter[0][self.self.memory.get_shape()[1] + 2:self.memory.get_shape()[1] + 2 + 3])
+        gamma = tf.log(tf.exp(head_parameter[0][-1]) + 1) + 1
         with tf.variable_scope('adressing_head'):
             w = adressing.adress(k,beta,g,s,gamma,self.memory,previous_weights)
-
 
         #Reading
         with tf.variable_scope("read_vector"):
