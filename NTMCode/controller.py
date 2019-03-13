@@ -20,6 +20,8 @@ class NTM(object):
         self.graph_argument = graph_argument
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
+        print(self.memory.get_shape(),'0')
+        
         with tf.variable_scope("concat", reuse = (self.step > 0)):
             x = tf.layers.Flatten()(x)
             NTM_Input = tf.concat([x, prev_read], axis=1)
@@ -42,11 +44,7 @@ class NTM(object):
         #Form focus vectors
 
 
-        print(self.memory.get_shape()[1])
 
-        print(type(head_parameter))
-
-        print(head_parameter[0].get_shape(),'head p')
 
         k = tf.tanh(head_parameter[0][0:self.memory.get_shape()[1]])
         beta = tf.sigmoid(head_parameter[0][self.memory.get_shape()[1]]) * 10

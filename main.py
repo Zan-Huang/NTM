@@ -2,6 +2,8 @@ import tensorflow as tf
 import numpy as np
 import sys
 import model
+from tensorflow.python import debug as tf_debug
+
 
 #data = np.load('data.npy')
 sys.path.insert(0, 'NTMCode')

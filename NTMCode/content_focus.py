@@ -26,15 +26,15 @@ def content_address(beta_strength, key_vector, memory_vector):
     composite_top = []
 
     content_bottom = 0
-    for j in range(0, memory_vector.shape.as_list()[0]):
+    print(memory_vector.shape, 'mv')
+    for j in range(0, memory_vector.shape.as_list()[1]):
         content_bot_temp = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, memory_vector[j])))
         content_bottom = tf.add(content_bot_temp, content_bottom)
 
-    for i in range(0, memory_vector.shape.as_list()[0]):
+    for i in range(0, memory_vector.shape.as_list()[1]):
         content_vector_top = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, memory_vector[i])))
         final_top = content_vector_top / content_bottom
         composite_top.append(final_top)
-
     final_focus_vector = tf.stack([piece for piece in composite_top])
     return final_focus_vector
 """
