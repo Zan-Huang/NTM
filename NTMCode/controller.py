@@ -20,7 +20,6 @@ class NTM(object):
         self.graph_argument = graph_argument
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
-        print(self.memory.get_shape(),'0')
         
         with tf.variable_scope("concat", reuse = (self.step > 0)):
             x = tf.layers.Flatten()(x)
