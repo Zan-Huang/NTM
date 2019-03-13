@@ -50,7 +50,7 @@ class NTM(object):
         g = tf.sigmoid(head_parameter[0][self.memory.get_shape()[1] + 1])
         s = tf.nn.softmax(head_parameter[0][self.memory.get_shape()[1] + 2:self.memory.get_shape()[1] + 2 + 3])
         gamma = tf.log(tf.exp(head_parameter[0][-1]) + 1) + 1
-        with tf.variable_scope('adressing_head'):
+        with tf.variable_scope('addressing_head'):
             ad = addressing.addressing(k, beta, g, s,gamma, self.memory, previous_weights)
             w = ad.address()
         #Reading

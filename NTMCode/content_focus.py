@@ -21,7 +21,7 @@ def content_address(beta_strength, key_vector, memory_vector):
 
     content_bottom = 0
     for j in range(0, memory_vector.shape.as_list()[1]):
-        print(memory_vector.shape.as_list())
+        print(memory_vector[1])
         content_bot_temp = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, memory_vector[1][j])))
         content_bottom = tf.add(content_bot_temp, content_bottom)
 
