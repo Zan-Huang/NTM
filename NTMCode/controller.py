@@ -20,7 +20,7 @@ class NTM(object):
         self.graph_argument = graph_argument
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
-        
+
         with tf.variable_scope("concat", reuse = (self.step > 0)):
             x = tf.layers.Flatten()(x)
             NTM_Input = tf.concat([x, prev_read], axis=1)
@@ -51,7 +51,12 @@ class NTM(object):
         s = tf.nn.softmax(head_parameter[0][self.memory.get_shape()[1] + 2:self.memory.get_shape()[1] + 2 + 3])
         gamma = tf.log(tf.exp(head_parameter[0][-1]) + 1) + 1
         with tf.variable_scope('addressing_head'):
-            ad = addressing.addressing(k, beta, g, s,gamma, self.memory, previous_weights)
+            print(k.get_shape())
+            print(self.memory.get_shape())
+            print(tf.reshape(self.memory,[80, 100]).get_shape())
+            #tf.gather_nd(self.memory_vector,[1,j])
+            #ad = addressing.addressing(k, beta, g, s,gamma, self.memory, previous_weights)
+            ad = addressing.addressing(k, beta, g, s,gamma, tf.reshape(self.memory,[80, 100]), previous_weights)
             w = ad.address()
         #Reading
         with tf.variable_scope("read_vector"):
