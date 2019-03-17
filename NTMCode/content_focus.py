@@ -4,6 +4,9 @@ import numpy as np
 
 
 def similarity_measure(key_vector, memory_vector_slice):
+    print("test")
+    print(key_vector.shape.as_list()[0])
+    print(memory_vector_slice.shape)
     if key_vector.shape.as_list()[0] != memory_vector_slice.shape.as_list()[0]:
         raise Exception('The length of key vector is not equal to memory vector row length.')
     dot_product_term = tf.tensordot(key_vector, memory_vector_slice, 1)
