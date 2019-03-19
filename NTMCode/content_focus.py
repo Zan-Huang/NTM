@@ -4,9 +4,6 @@ import numpy as np
 
 
 def similarity_measure(key_vector, memory_vector_slice):
-    print("test")
-    #print(key_vector.shape.as_list(),'key_vector')
-    #print(key_vector.shape.as_list()[0],'test')
     print("-------------------")
     print(memory_vector_slice.shape.as_list(), 'memory_vector')
     if key_vector.shape.as_list()[0] != memory_vector_slice.shape.as_list()[0]:
@@ -20,6 +17,9 @@ def similarity_measure(key_vector, memory_vector_slice):
 
 
 def content_address(beta_strength, key_vector, memory_vector):
+    print("inside content_address-")
+    print(memory_vector.shape.as_list(), 'memory_vector')
+    print("inside content_address-")
     content_filler = tf.constant(np.zeros(memory_vector.shape.as_list()[0]))
     weight_vector = tf.get_variable("content_weights", initializer = content_filler)
     composite_top = []
