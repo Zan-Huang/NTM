@@ -19,7 +19,10 @@ class addressing(object):
         self.ones = 1.0
 
     def address(self):
+        print(self.M_prev.shape.as_list())
+        print("+++++++++++++")
         content_weight = content_focus.content_address(self.beta, self.k, self.M_prev)
+
         #interpolation_weight = focus_location.location_lookup(self.w_prev, content_weight, self.g, self.ones)
         interpolation_weight = focus_location.location_lookup(self.w_prev, content_weight, self.g, self.ones)
         blurred_weight = convshift.conv_function(self.g, self.s)

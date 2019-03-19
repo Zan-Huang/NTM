@@ -7,7 +7,8 @@ def similarity_measure(key_vector, memory_vector_slice):
     print("test")
     #print(key_vector.shape.as_list(),'key_vector')
     #print(key_vector.shape.as_list()[0],'test')
-    print(memory_vector_slice.shape.as_list(), 'memory_vecotr')
+    print("-------------------")
+    print(memory_vector_slice.shape.as_list(), 'memory_vector')
     if key_vector.shape.as_list()[0] != memory_vector_slice.shape.as_list()[0]:
         raise Exception('The length of key vector is not equal to memory vector row length.')
     dot_product_term = tf.tensordot(key_vector, memory_vector_slice, 1)
@@ -25,7 +26,7 @@ def content_address(beta_strength, key_vector, memory_vector):
 
     content_bottom = 0
     for j in range(0, memory_vector.shape.as_list()[1]):
-        print(tf.gather_nd(memory_vector,[[1,j]]).shape.as_list(),'gather') 
+        print(tf.gather_nd(memory_vector,[[1,j]]).shape.as_list(),'gather')
         content_bot_temp = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, tf.gather_nd(memory_vector,[[1,j]]))))
         content_bottom = tf.add(content_bot_temp, content_bottom)
 

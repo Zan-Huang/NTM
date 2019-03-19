@@ -56,7 +56,11 @@ class NTM(object):
             print(tf.reshape(self.memory,[80, 100]).get_shape())
             #tf.gather_nd(self.memory_vector,[1,j])
             #ad = addressing.addressing(k, beta, g, s,gamma, self.memory, previous_weights)
-            ad = addressing.addressing(k, beta, g, s,gamma, tf.reshape(self.memory,[80, 100]), previous_weights)
+            inter_memory = tf.reshape(self.memory,[80, 100])
+            print("...")
+            print(inter_memory.shape.as_list())
+            print("...")
+            ad = addressing.addressing(k, beta, g, s,gamma, inter_memory, previous_weights)
             w = ad.address()
         #Reading
         with tf.variable_scope("read_vector"):
