@@ -28,7 +28,9 @@ def content_address(beta_strength, key_vector, memory_vector, sess):
     content_bottom = 0
     for j in range(0, memory_vector.shape.as_list()[1]):
         #print(tf.gather_nd(memory_vector,[[1,j]]).shape.as_list(),'gather')
-        print(memory_vector[:, j].eval(sess))
+        print("testttt")
+        print(memory_vector[:, j].eval(session = sess))
+        print("testttt")
         content_bot_temp = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, tf.gather_nd(memory_vector,[[1,j]]))))
         content_bottom = tf.add(content_bot_temp, content_bottom)
 
