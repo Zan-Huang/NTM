@@ -2,8 +2,6 @@ import tensorflow as tf
 import numpy as np
 import sys
 import model
-from tensorflow.python import debug as tf_debug
-
 
 #data = np.load('data.npy')
 sys.path.insert(0, 'NTMCode')
@@ -30,11 +28,12 @@ def build_model():
 '''
 def train():
 #	print(seq_length)
-	model1 = model.StockPredictor(FLAGS.seq_length,FLAGS.batch_size,FLAGS.vector_dim)
 	train_inputs = tf.placeholder(tf.float32, [FLAGS.batch_size, FLAGS.seq_length, FLAGS.vector_dim])
-	train_labels = tf.placeholder(tf.float32, [FALGS.batch_size])
+	train_labels = tf.placeholder(tf.float32, [FLAGS.batch_size])
 
+	#with tf.Session() as sess:
 	with tf.Session() as sess:
+		model1 = model.StockPredictor(FLAGS.seq_length,FLAGS.batch_size,FLAGS.vector_dim, sess)
 		saver = tf.train.Saver(tf.global_variables())
 		tf.global_variables_initializer().run()
 		train_writer = tf.summary.FileWriter(FLAGS.tensorboard_dir, sess.graph)

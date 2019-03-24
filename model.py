@@ -9,13 +9,14 @@ import controller
 g = tf.Graph()
 
 class StockPredictor(object):
-    def __init__(self, seq_length, batch_size, vector_dim):
+    def __init__(self, seq_length, batch_size, vector_dim, sess):
         self.x = tf.placeholder(name='x',dtype=tf.float32,shape=[batch_size, seq_length, vector_dim])
+        self.sess = sess
         #self.y = label
 
         memory_vector = tf.get_variable("memory_vector_test", initializer = np.random.rand(80, 100))
         unit_size = 512
-        cell = controller.NTM(unit_size, memory_vector, self.x.shape[2], g)
+        cell = controller.NTM(unit_size, memory_vector, self.x.shape[2], g, self.sess)
         controller_state, read_vector, w = cell.initial_state(batch_size, tf.float32)
         for i in range(seq_length):
             output, controller_state, read_vector, w = cell(self.x[:,i,:],controller_state,w,read_vector)

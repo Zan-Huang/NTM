@@ -16,9 +16,10 @@ def similarity_measure(key_vector, memory_vector_slice):
     return similarity_measure_result
 
 
-def content_address(beta_strength, key_vector, memory_vector):
+def content_address(beta_strength, key_vector, memory_vector, sess):
     print("inside content_address-")
     print(memory_vector.shape.as_list(), 'memory_vector')
+    print(key_vector.shape.as_list(), 'key_vector')
     print("inside content_address-")
     content_filler = tf.constant(np.zeros(memory_vector.shape.as_list()[0]))
     weight_vector = tf.get_variable("content_weights", initializer = content_filler)
@@ -26,7 +27,8 @@ def content_address(beta_strength, key_vector, memory_vector):
 
     content_bottom = 0
     for j in range(0, memory_vector.shape.as_list()[1]):
-        print(tf.gather_nd(memory_vector,[[1,j]]).shape.as_list(),'gather')
+        #print(tf.gather_nd(memory_vector,[[1,j]]).shape.as_list(),'gather')
+        print(memory_vector[:, j].eval(sess))
         content_bot_temp = tf.math.exp(tf.multiply(beta_strength, similarity_measure(key_vector, tf.gather_nd(memory_vector,[[1,j]]))))
         content_bottom = tf.add(content_bot_temp, content_bottom)
 

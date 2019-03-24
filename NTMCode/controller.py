@@ -11,13 +11,14 @@ import read
 import addressing
 
 class NTM(object):
-    def __init__(self, unit_size, memory, output_dim, graph_argument):
+    def __init__(self, unit_size, memory, output_dim, graph_argument, sess):
         self.unit_size = unit_size
         self.memory = memory
         self.controller = tf.contrib.rnn.GRUCell(unit_size)
         self.step = 0
         self.output_dim = output_dim
         self.graph_argument = graph_argument
+        self.sess = sess
 
     def __call__(self, x, previous_controller, previous_weights, prev_read):
 
@@ -60,7 +61,7 @@ class NTM(object):
             print("...")
             print(inter_memory.shape.as_list())
             print("...")
-            ad = addressing.addressing(k, beta, g, s,gamma, inter_memory, previous_weights)
+            ad = addressing.addressing(k, beta, g, s,gamma, inter_memory, previous_weights, self.sess)
             w = ad.address()
         #Reading
         with tf.variable_scope("read_vector"):
